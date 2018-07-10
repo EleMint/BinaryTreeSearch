@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace BinaryTreeSearch
 {
-    class Tree<T> : IComparer<T>
+    class Tree<T>
     {
         // Member Variables
         private Node<T> rootNode;
-        //private Node<T> parentNode;
         private Node<T> tempNode;
-        //private T tempValue = default(T);
         // Constructor
         public Tree()
         {
@@ -29,7 +27,8 @@ namespace BinaryTreeSearch
             }
             else
             {
-                if (node.Compare(node.value, rootNode.value) < 0)
+                tempNode = rootNode;
+                if (Comparer<T>.Default.Compare(node.value, rootNode.value) < 0)
                 {
                     CheckLeftNode(node, tempNode);
                 }
@@ -38,11 +37,8 @@ namespace BinaryTreeSearch
                     CheckRightNode(node, tempNode);
                 }
             }
-
+            
         }
-
-        
-
         public bool Search(T value)
         {
             return true;
@@ -52,11 +48,12 @@ namespace BinaryTreeSearch
             T temp = tempNode.value;
             while(node.parentNode == null)
             {
-                if (node.IComparer<T>.Compare(node.value, temp) < 0 && tempNode.childLeft == null)
+                if (Comparer<T>.Default.Compare(node.value, temp) < 0 && tempNode.childLeft == null)
                 {
-                    node.parentNode = tempNode.childLeft;
+                    node.parentNode = tempNode;
+                    tempNode.childLeft = node;
                 }
-                else if(node.Compare(node.value, temp) > 0 || node.Compare(node.value, temp) == 0)
+                else if(Comparer<T>.Default.Compare(node.value, temp) > 0 || Comparer<T>.Default.Compare(node.value, temp) == 0)
                 {
                     CheckRightNode(node, tempNode);
                 }
@@ -67,20 +64,16 @@ namespace BinaryTreeSearch
             T temp = tempNode.value;
             while (node.parentNode == null)
             {
-                if ((node.Compare(node.value, temp) > 0 || node.Compare(node.value, temp) == 0) && tempNode.childLeft == null)
+                if ((Comparer<T>.Default.Compare(node.value, temp) > 0 || Comparer<T>.Default.Compare(node.value, temp) == 0) && tempNode.childLeft == null)
                 {
-                    node.parentNode = tempNode.childRight;
+                    node.parentNode = tempNode;
+                    tempNode.childRight = node;
                 }
-                else if (node.Compare(node.value, temp) < 0)
+                else if (Comparer<T>.Default.Compare(node.value, temp) < 0)
                 {
                     CheckLeftNode(node, tempNode);
                 }
             }
-        }
-
-        int IComparer<T>.Compare(T x, T y)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BinaryTreeSearch
 {
-    class Node<T> : IComparer<T>
+    class Node<T>
     {
         // Member Variables
         public T value;
@@ -20,11 +20,6 @@ namespace BinaryTreeSearch
             parentNode = null;
             childLeft = null;
             childRight = null;
-        }
-        // Member Methods
-        int IComparer<T>.Compare(T x, T y)
-        {
-            throw new NotImplementedException();
         }
     }
 }
