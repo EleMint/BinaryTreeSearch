@@ -39,10 +39,6 @@ namespace BinaryTreeSearch
             }
             
         }
-        public bool Search(T value)
-        {
-            return true;
-        }
         private void CheckLeftNode(Node<T> node, Node<T> tempNode)
         {
             T temp = tempNode.value;
@@ -82,6 +78,78 @@ namespace BinaryTreeSearch
                     CheckLeftNode(node, tempNode);
                 }
             }
+        }
+        public bool Search(T value)
+        {
+            if (Comparer<T>.Default.Compare(value, rootNode.value) < 0 && rootNode.childLeft != null)
+            {
+                return LeftNodeSearch(value, rootNode.childLeft);
+            }
+            else if (Comparer<T>.Default.Compare(value, rootNode.value) < 0 && rootNode.childLeft == null)
+            {
+                return false;
+            }
+            else if (Comparer<T>.Default.Compare(value, rootNode.value) > 0 && rootNode.childRight != null)
+            {
+                return RightNodeSearch(value, rootNode.childRight);
+            }
+            else if (Comparer<T>.Default.Compare(value, rootNode.value) > 0 && rootNode.childRight == null)
+            {
+                return false;
+            }
+            else if(Comparer<T>.Default.Compare(value, rootNode.value) == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool LeftNodeSearch(T value, Node<T> curParentNode)
+        {
+            if(Comparer<T>.Default.Compare(value, curParentNode.value) == 0)
+            {
+                return true;
+            }
+            else if(Comparer<T>.Default.Compare(value, curParentNode.value) > 0 && curParentNode.childLeft != null)
+            {
+                LeftNodeSearch(value, curParentNode.childLeft);
+            }
+            else if(Comparer<T>.Default.Compare(value, curParentNode.value) > 0 && curParentNode.childLeft == null)
+            {
+                return false;
+            }
+            else if(Comparer<T>.Default.Compare(value, curParentNode.value) < 0 && curParentNode.childLeft != null)
+            {
+                RightNodeSearch(value, curParentNode.childRight);
+            }
+            else if(Comparer<T>.Default.Compare(value, curParentNode.value) < 0 && curParentNode.childLeft == null)
+            {
+                return false;
+            }
+            return false;
+        }
+        public bool RightNodeSearch(T value, Node<T> curParentNode)
+        {
+            if (Comparer<T>.Default.Compare(value, curParentNode.value) == 0)
+            {
+                return true;
+            }
+            else if (Comparer<T>.Default.Compare(value, curParentNode.value) > 0 && curParentNode.childLeft != null)
+            {
+                LeftNodeSearch(value, curParentNode.childLeft);
+            }
+            else if (Comparer<T>.Default.Compare(value, curParentNode.value) > 0 && curParentNode.childLeft == null)
+            {
+                return false;
+            }
+            else if (Comparer<T>.Default.Compare(value, curParentNode.value) < 0 && curParentNode.childLeft != null)
+            {
+                RightNodeSearch(value, curParentNode.childRight);
+            }
+            else if (Comparer<T>.Default.Compare(value, curParentNode.value) < 0 && curParentNode.childLeft == null)
+            {
+                return false;
+            }
+            return false;
         }
     }
 }
