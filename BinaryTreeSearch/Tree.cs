@@ -53,7 +53,11 @@ namespace BinaryTreeSearch
                     node.parentNode = tempNode;
                     tempNode.childLeft = node;
                 }
-                else if(Comparer<T>.Default.Compare(node.value, temp) > 0 || Comparer<T>.Default.Compare(node.value, temp) == 0)
+                else if(Comparer<T>.Default.Compare(node.value, temp) < 0 && tempNode.childLeft != null)
+                {
+                    CheckLeftNode(node, tempNode.childLeft);
+                }
+                else if(Comparer<T>.Default.Compare(node.value, temp) >= 0)
                 {
                     CheckRightNode(node, tempNode);
                 }
@@ -64,10 +68,14 @@ namespace BinaryTreeSearch
             T temp = tempNode.value;
             while (node.parentNode == null)
             {
-                if ((Comparer<T>.Default.Compare(node.value, temp) > 0 || Comparer<T>.Default.Compare(node.value, temp) == 0) && tempNode.childLeft == null)
+                if (Comparer<T>.Default.Compare(node.value, temp) >= 0 && tempNode.childRight == null)
                 {
                     node.parentNode = tempNode;
                     tempNode.childRight = node;
+                }
+                else if(Comparer<T>.Default.Compare(node.value, temp) >= 0 && tempNode.childRight != null)
+                {
+                    CheckRightNode(node, tempNode.childRight);
                 }
                 else if (Comparer<T>.Default.Compare(node.value, temp) < 0)
                 {
