@@ -8,12 +8,10 @@ namespace BinaryTreeSearch
 {
     class Node<T>
     {
-        // Member Variables
         public T value;
         public Node<T> parentNode;
         public Node<T> childLeft;
         public Node<T> childRight;
-        // Constructor
         public Node(T value)
         {
             this.value = value;
